@@ -8,6 +8,11 @@ import 'package:timeago/timeago.dart' as timeago;
 void main() async {
   var client = new http.Client();
 
+  if(!File('repos.txt').existsSync()) {
+    print("ERROR: You need a repos.txt file with the urls of github repos in it.\n");
+    exit(-1);
+  }
+
   // Text file containing all the repos
   List<String> lines = new File('repos.txt').readAsLinesSync();
 
