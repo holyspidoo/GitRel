@@ -1,0 +1,5 @@
+name: GitRel
+dependencies:
+  webfeed: ^0.4.0
+  http: ^0.12.0
+  timeago: ^2.0.8
