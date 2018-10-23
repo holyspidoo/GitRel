@@ -8,13 +8,13 @@ Requirements:
 To install:
 
 ```console
-> pub global activate GitRel
+> pub global activate -sgit https://github.com/holyspidoo/GitRel
 ```
 
 To update, run activate again:
 
 ```console
-> pub global activate GitRel
+> pub global activate -sgit https://github.com/holyspidoo/GitRel
 ```
 
 ## Usage
