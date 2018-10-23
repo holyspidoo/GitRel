@@ -5,6 +5,8 @@ description: >
 version: 0.0.1
 author: JGabriel <infojgmx@gmail.com>
 homepage: https://github.com/holyspidoo/GitRel
+environment:
+  sdk: '>=2.0.0 <3.0.0'
 executables:
   GitRel:
 dependencies:
