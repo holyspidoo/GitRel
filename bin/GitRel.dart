@@ -95,9 +95,12 @@ void main(List<String> arguments) async {
   }
   
   if(lines.isEmpty && starFeedUrls.isEmpty){
-    print("\nNo repos file was provided, nor was a gitHub user name");
+    print("\nNo repos.txt file in current directory, nor was a gitHub user name");
     print("\nUSAGE:");
-    print("dart GitRel.dart githubusername\n");
+    print("GitRel [-d] [githubusername]\n");
+    print("repos.txt should contain only one repo URL per line. Example:");
+    print("https://github.com/acidanthera/WhateverGreen");
+    print("https://github.com/acidanthera/Lilu");
   }
 
   // Write the new dateMap to disk if -d flag was used

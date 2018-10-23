@@ -4,6 +4,7 @@ description: >
 # After changing the version, run `pub run build_runner build`.
 version: 0.0.1
 author: JGabriel <infojgmx@gmail.com>
+homepage: https://github.com/holyspidoo/GitRel
 executables:
   GitRel:
 dependencies:
