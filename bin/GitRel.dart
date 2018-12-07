@@ -120,6 +120,8 @@ void main(List<String> arguments) async {
 /// and the last update date.
 void processListOfFeeds(List<String> lines) async {
   
+  // Map with String to print and Time of update
+  Map<String,DateTime> mapToOrder = Map<String,DateTime>();
 
   var client = new http.Client();
   // For every repo, get the feed, and get the last version + updated date
@@ -142,8 +144,10 @@ void processListOfFeeds(List<String> lines) async {
     DateTime updatedTime = DateTime.parse(item.updated);
     String easyToReadTime = timeago.format(updatedTime);
 
-    print("-------------------------------------------------------");
-    print(feed.title.replaceFirst("Release notes from ", '')+", " + item.title.toString());
+    String stringBuilder = "-------------------------------------------------------\n";
+    //print("-------------------------------------------------------");
+    stringBuilder += feed.title.replaceFirst("Release notes from ", '')+", " + item.title.toString();
+    //print(feed.title.replaceFirst("Release notes from ", '')+", " + item.title.toString());
 
     // If an old date exists, get that date and compare to the new date
     if (lastCheckedDates != null) {
@@ -153,19 +157,41 @@ void processListOfFeeds(List<String> lines) async {
         String easyToReadLastTime = timeago.format(lastCheckedDateTime);
 
         if (lastCheckedDateTime == updatedTime) {
-          print("Still the same version as last time you checked :(");
+          //print("Still the same version as last time you checked :(");
+          stringBuilder += "\nStill the same version as last time you checked :(";
         } else {
           // NEW VERSION, mention it
-          print("----> NEW VERSION IS HERE <----");
+          //print("----> NEW VERSION IS HERE <----");
+          stringBuilder += "\n----> NEW VERSION IS HERE <----";
         }
       }
     }
-    print("Last update: \t" + easyToReadTime);
+    //print("Last update: \t" + easyToReadTime);
+    stringBuilder += "\nLast update: \t" + easyToReadTime+"\n";
+
+    //print(stringBuilder);
 
     // Add to Map
     dateMap[feed.title] = item.updated;
-  }
-  client.close();
 
+    // Add to sortMap
+    mapToOrder[stringBuilder] = updatedTime;
+
+  }
+
+  // For every string, compare the updated time to sort the keys
+  List mapKeys = mapToOrder.keys.toList(growable: false);
+  mapKeys.sort(
+    (k1,k2)=>mapToOrder[k1].compareTo(mapToOrder[k2])
+    );
+  
+  // Just print the keys since those are the strings we want to print with all the info
+  // including the date, no need to re-convert
+  mapKeys.forEach(
+    (k1){
+    print(k1);
+  });
+
+  client.close();
 
 }
