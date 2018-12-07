@@ -2,7 +2,7 @@ name: GitRel
 description: >
   Checks GitHub repos for new releases. Can also check all the Starred repos of a github user for new releases.
 # After changing the version, run `pub run build_runner build`.
-version: 0.0.1
+version: 0.0.2
 author: JGabriel <infojgmx@gmail.com>
 homepage: https://github.com/holyspidoo/GitRel
 environment:
