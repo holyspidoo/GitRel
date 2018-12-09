@@ -22,6 +22,7 @@ const String storeLastDatesString = 'storeLastDates';
 Map<String, String> dateMap = Map<String, String>();
 
 void main(List<String> arguments) async {
+
   final client = new http.Client();
 
   // If a username was provided in the arguments, parse that
@@ -111,6 +112,7 @@ void main(List<String> arguments) async {
   }
 
   print("\n");
+
   // Normal exit
   exit(0);
 }
@@ -120,6 +122,9 @@ void main(List<String> arguments) async {
 /// and the last update date.
 void processListOfFeeds(List<String> lines) async {
   
+    // Print status
+    stdout.write("Loading..");
+
   // Map with String to print and Time of update
   Map<String,DateTime> mapToOrder = Map<String,DateTime>();
 
@@ -127,6 +132,9 @@ void processListOfFeeds(List<String> lines) async {
   // For every repo, get the feed, and get the last version + updated date
   for (var line in lines) {
     String feedUrl = line + releasesAtomString;
+
+    // Print status
+    stdout.write(".");
 
     // Get the Feed
     var curFeed = await client.get(feedUrl);
@@ -144,7 +152,7 @@ void processListOfFeeds(List<String> lines) async {
     DateTime updatedTime = DateTime.parse(item.updated);
     String easyToReadTime = timeago.format(updatedTime);
 
-    String stringBuilder = "-------------------------------------------------------\n";
+    String stringBuilder = "\n-------------------------------------------------------\n";
     //print("-------------------------------------------------------");
     stringBuilder += feed.title.replaceFirst("Release notes from ", '')+", " + item.title.toString();
     //print(feed.title.replaceFirst("Release notes from ", '')+", " + item.title.toString());
@@ -167,7 +175,7 @@ void processListOfFeeds(List<String> lines) async {
       }
     }
     //print("Last update: \t" + easyToReadTime);
-    stringBuilder += "\nLast update: \t" + easyToReadTime+"\n";
+    stringBuilder += "\nLast update: \t" + easyToReadTime;
 
     //print(stringBuilder);
 
@@ -178,6 +186,9 @@ void processListOfFeeds(List<String> lines) async {
     mapToOrder[stringBuilder] = updatedTime;
 
   }
+
+  // Print status
+  stdout.write(". Done!");
 
   // For every string, compare the updated time to sort the keys
   List mapKeys = mapToOrder.keys.toList(growable: false);
