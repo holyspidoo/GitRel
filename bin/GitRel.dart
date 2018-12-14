@@ -174,6 +174,10 @@ void processListOfFeeds(List<String> lines) async {
         }
       }
     }
+
+    // Add the URL for quick access from the terminal
+    stringBuilder += "\n"+line;
+
     //print("Last update: \t" + easyToReadTime);
     stringBuilder += "\nLast update: \t" + easyToReadTime;
 
